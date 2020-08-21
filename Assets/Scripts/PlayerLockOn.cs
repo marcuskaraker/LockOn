@@ -6,28 +6,16 @@ public class PlayerLockOn : MonoBehaviour
     public GameObject targetVisuals;
     public LayerMask hitMask;
 
-    public Vector2 lastHitTargetPos;
-
     public bool changedLockOnTarget;
 
     private void Update()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, 50f, hitMask);
-        if (hit.collider != null)
-        {
-            changedLockOnTarget = lockOnTarget != hit.transform.gameObject;
-
-            lockOnTarget = hit.transform.gameObject;
-            lastHitTargetPos = lockOnTarget.transform.position;
-        }
-        else
-        {
-            lockOnTarget = GameManager.Instance.GetEnemyClosestToPosition(lastHitTargetPos);
-        }
+        LockOnCheck();
 
         if (changedLockOnTarget)
         {
             targetVisuals.transform.localScale = new Vector3(2f, 2f, 2f);
+            changedLockOnTarget = false;
         }
     }
 
@@ -42,6 +30,20 @@ public class PlayerLockOn : MonoBehaviour
         else
         {
             targetVisuals.SetActive(false);
+        }
+    }
+
+    public void LockOnCheck()
+    {
+        if (lockOnTarget == null)
+        {
+            lockOnTarget = GameManager.Instance.GetEnemyClosestToPosition(transform.position);
+            changedLockOnTarget = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            lockOnTarget = GameManager.Instance.GetEnemyClosestToPosition(transform.position, lockOnTarget);
+            changedLockOnTarget = true;
         }
     }
 }

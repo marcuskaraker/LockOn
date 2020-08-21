@@ -19,7 +19,7 @@ public class PlayerInput : MonoBehaviour
     {
         float moveX = Input.GetAxis("Horizontal");
         float moveY = Input.GetAxis("Vertical");
-    
+
         movement.direction = new Vector2(moveX, moveY);
         movement.rotationTarget = playerLockOn.lockOnTarget != null ? playerLockOn.lockOnTarget.transform.position : Vector3.zero;
 

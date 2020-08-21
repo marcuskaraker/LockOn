@@ -10,24 +10,38 @@ public class Projectile : MonoBehaviour
 
     private void Start()
     {
-        Destroy(gameObject, lifeTime);
+        if (lifeTime >= 0)
+        {
+            Destroy(gameObject, lifeTime);
+        }       
     }
 
     private void Update()
     {
-        transform.Translate(Vector2.up * speed * Time.deltaTime);
-
-        //RaycastHit2D hit = Physics2D.Raycast(transform.position, )
+        if (speed != 0)
+        {
+            transform.Translate(Vector2.up * speed * Time.deltaTime);
+        }    
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Destructible destructible = collision.gameObject.GetComponent<Destructible>();
-        if (destructible)
+        if (CheckIfLayerIsWithinMask(collision.transform.gameObject.layer, layerMask))
         {
-            destructible.Hurt(damage);
-        }
+            Destructible destructible = collision.gameObject.GetComponent<Destructible>();
+            if (destructible)
+            {
+                destructible.Hurt(damage);
+            }
 
-        Destroy(gameObject);
+            Destroy(gameObject);
+        }
+    }
+
+    public bool CheckIfLayerIsWithinMask(int layer, LayerMask mask)
+    {
+        // Bitwise operator for checking if a layer is within a mask. 
+        // Unity Forums user: TowerOfBricks
+        return (mask == (mask | (1 << layer)));
     }
 }

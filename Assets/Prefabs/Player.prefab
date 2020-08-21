@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 970547299162769463}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 970547299640285429}
   m_RootOrder: 0
@@ -101,7 +101,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3319295b7e3fc924bace8ab3b5950805, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c27d03fd9853ab648b7114c90fa09a5b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 6459905496902306287}
   - component: {fileID: 970547299640285430}
   - component: {fileID: 970547299640285433}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -208,9 +208,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lockOnTarget: {fileID: 0}
+  targetVisuals: {fileID: 0}
   hitMask:
     serializedVersion: 2
     m_Bits: 256
+  changedLockOnTarget: 0
 --- !u!114 &6459905496902306287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,7 +227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   maxHealth: 100
-  destroyOnDeath: 0
+  destroyOnDeath: 1
   onHurt:
     m_PersistentCalls:
       m_Calls: []
